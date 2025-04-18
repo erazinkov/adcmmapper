@@ -1,8 +1,7 @@
-QT       += core gui concurrent
+QT -= gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-CONFIG += c++17
+CONFIG += c++17 console
+CONFIG -= app_bundle
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -10,24 +9,18 @@ CONFIG += c++17
 
 SOURCES += \
     channelmap.cpp \
-    controller.cpp \
+    mapperparser.cpp \
     decoder.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    worker.cpp
-
-HEADERS += \
-    adcm_df.h \
-    channelmap.h \
-    controller.h \
-    decoder.h \
-    mainwindow.h \
-    worker.h
-
-FORMS += \
-    mainwindow.ui
+    main.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    adcm_df.h \
+    channelmap.h \
+    decoder.h \
+    mapperparser.h \
+    mapperquery.h

@@ -7,19 +7,16 @@
 class Decoder
 {
 public:
-    Decoder(const std::string &, const ChannelMap &);
-    std::vector<dec_ev_t> & events();
+    Decoder(const std::string &, const std::string &, const ChannelMap &);
     void process();
-    std::vector<long> positionsOfCMAPHeaders();
-    std::vector<long> positionsOfNDHeaders();
-    void positionsOfCMAPHeadersAndNDHeaders();
-private:
 
-    std::string fileName_;
+private:
+//    std::string fileName_;
+    std::string inputPath_;
+    std::string outputPath_;
     std::ifstream ifs_;
+    std::ofstream ofs_;
     ChannelMap pre_;
-    std::vector<dec_ev_t> events_;
-    dec_cnt_t counters_;
 };
 
 
