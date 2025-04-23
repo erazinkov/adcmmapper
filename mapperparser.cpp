@@ -38,7 +38,7 @@ MapperParser::CommandLineParseResult MapperParser::parseCommandLine()
 {
     using Status = CommandLineParseResult::Status;
 
-    parser_.setApplicationDescription("Emulate and handle adcm data program.");
+    parser_.setApplicationDescription("Adcm data mapping program.");
     parser_.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
     const QCommandLineOption aOption("a", "any (unused)", "a");
 
@@ -68,16 +68,21 @@ MapperParser::CommandLineParseResult MapperParser::parseCommandLine()
 //    }
 
     const QStringList positionalArguments = parser_.positionalArguments();
-    if (positionalArguments.isEmpty() || positionalArguments.size() < 2)
+    if (positionalArguments.isEmpty() || positionalArguments.size() < 1)
     {
-        return { Status::Error, "Arguments 'input' and 'output' required." };
+        return { Status::Error, "Argument 'input' required." };
     }
-    if (positionalArguments.size() > 2)
+    if (positionalArguments.size() > 3)
     {
         return { Status::Error, "Several 'input' or 'output' arguments specified." };
     }
     query_.input = positionalArguments.first();
-    query_.output = positionalArguments.last();
+    query_.output = positionalArguments.first() + ".map";
+    if (positionalArguments.size() == 2)
+    {
+        query_.output = positionalArguments.last();
+    }
+
 
     return { Status::Ok };
 }

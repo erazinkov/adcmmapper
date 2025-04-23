@@ -42,6 +42,7 @@ void Decoder::process()
             ifs_ >> nd;
             modTimePosCmap.first = nd.time;
             currentPosition -= sizeof(stor_packet_hdr_t);
+            modTimePosCmap.second = currentPosition;
             continue;
         }
         if (hdr.id == STOR_ID_CMAP && hdr.size > sizeof(stor_packet_hdr_t))
@@ -52,7 +53,6 @@ void Decoder::process()
             if (c)
             {
                 currentPosition -= sizeof(stor_packet_hdr_t);
-                modTimePosCmap.second = currentPosition;
             }
             continue;
         }
