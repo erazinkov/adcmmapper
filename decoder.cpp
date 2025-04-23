@@ -10,12 +10,35 @@ Decoder::Decoder(const std::string &inputPath, const std::string &outputPath, co
 
 void Decoder::process()
 {
+    auto getInputFileName = [] (std::string str) {
+        auto pos = str.find_last_of("/");
+        if (pos == str.npos)
+        {
+            pos = 0;
+        }
+        else
+        {
+            pos += 1;
+        }
+        std::string fileName{str.substr(pos, str.length())};
+        return fileName;
+    };
+
+    const auto inputFileName{getInputFileName(inputPath_)};
+
+    if (!inputFileName.size()) {
+        std::cout << "Can't get input file name from input path " << inputPath_ << std::endl;
+        return;
+    }
+
     ifs_.open(inputPath_, std::ios::in | std::ios::binary);
     if (!ifs_.is_open())
     {
         std::cout << "Can't open file " << inputPath_ << std::endl;
         return;
     }
+
+
     ofs_.open(outputPath_);
     if (!ofs_.is_open())
     {
@@ -66,8 +89,8 @@ void Decoder::process()
         {
             if (modTimePosCmap.first != -1 && modTimePosCmap.second != -1)
             {
-                ofs_ << modTimePosCmap.first << " " << modTimePosCmap.second << "\n";
-                std::cout << modTimePosCmap.first << " " << modTimePosCmap.second << std::endl;
+                ofs_ << inputFileName << " " << modTimePosCmap.first << " " << modTimePosCmap.second << "\n";
+                std::cout << inputFileName << " " << modTimePosCmap.first << " " << modTimePosCmap.second << std::endl;
                 modTimePosCmap.first = -1;
                 modTimePosCmap.second = -1;
             }

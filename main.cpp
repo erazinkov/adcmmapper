@@ -33,6 +33,6 @@ void process(const MapperQuery &query)
 
     QString path = "/home/egor/build-adcmmodifier-Desktop-Debug/adcm.dat.mod";
     QString inputPath{query.input}, outputPath{query.output};
-    Decoder *decoder = new Decoder(inputPath.toStdString(), outputPath.toStdString(), pre);
+    Decoder *decoder{new Decoder(inputPath.toStdString(), outputPath.toStdString(), pre)};
     decoder->process();
 }
